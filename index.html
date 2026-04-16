@@ -9,22 +9,48 @@
     <script src="Build/UnityLoader.js"></script>
   </head>
   <body>
-    <div id="loading-video-background">
-      <video id="loading-video" muted loop>
-        <source src="TemplateData/loading.mp4" type="video/mp4" />
-      </video>
-    </div>
+    <div id="loading-video-background"></div>
     <div id="loading-overlay">
       <div id="loading-text">LOADING</div>
       <div id="loading-progress">0 MB / 2127.34 MB</div>
     </div>
     <div id="unityContainer"></div>
     <script>
-      var loadingVideo = document.querySelector("#loading-video");
-      var loadingText = document.querySelector("#loading-text");
-      var loadingProgress = document.querySelector("#loading-progress");
-      var videoContainer = document.querySelector("#loading-video-background");
-      var loadingOverlay = document.querySelector("#loading-overlay");
+      // Create video element lazily to not block initial load
+      let loadingVideo = null;
+      const loadingText = document.querySelector("#loading-text");
+      const loadingProgress = document.querySelector("#loading-progress");
+      const loadingOverlay = document.querySelector("#loading-overlay");
+      
+      function initializeVideo() {
+          const bg = document.querySelector("#loading-video-background");
+          if (!bg || bg.querySelector('video')) return;
+          
+          const video = document.createElement('video');
+          video.id = 'loading-video';
+          video.muted = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.style.display = 'block';
+          video.style.opacity = '0.9';
+          video.preload = 'none';
+          
+          const source = document.createElement('source');
+          source.src = 'TemplateData/loading.mp4';
+          source.type = 'video/mp4';
+          video.appendChild(source);
+          bg.appendChild(video);
+          
+          loadingVideo = video;
+          
+          // Try to play after creation
+          setTimeout(() => {
+              video.play().catch(() => console.log('Video autoplay not available'));
+          }, 100);
+      }
+      
+      // Initialize video after a short delay to not block page load
+      setTimeout(initializeVideo, 50);
       
       // Initialize tracking variables
       window.filesFromCache = 0;
