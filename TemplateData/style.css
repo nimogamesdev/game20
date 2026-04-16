@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('font.ttf') format('truetype');
+}
+
 .webgl-content * {border: 0; margin: 0; padding: 0}
 .webgl-content {position: absolute; top: 50%; left: 50%; -webkit-transform: translate(-50%, -50%); transform: translate(-50%, -50%);}
 
@@ -16,3 +21,74 @@
 .webgl-content .footer .webgl-logo {background-image: url('webgl-logo.png'); width: 204px; float: left;}
 .webgl-content .footer .title {margin-right: 10px; float: right;}
 .webgl-content .footer .fullscreen {background-image: url('fullscreen.png'); width: 38px; float: right;}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background: #231F20;
+}
+
+#unity-canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    background: #231F20;
+}
+
+#loading-video-background {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    z-index: 0;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%);
+    background-attachment: fixed;
+}
+
+#loading-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.95;
+    visibility: visible;
+    z-index: 0;
+    display: block;
+}
+
+#loading-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+#unityContainer {
+    position: relative;
+    z-index: 0;
+}
+
+#loading-text {
+    font-size: 48px;
+    font-family: 'CustomFont', cursive;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+}
+
+#loading-progress {
+    font-size: 24px;
+    font-family: 'CustomFont', Arial, sans-serif;
+}
